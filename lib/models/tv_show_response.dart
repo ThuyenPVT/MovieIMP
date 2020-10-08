@@ -11,12 +11,6 @@ class TvShowResponse {
   TvShowResponse.fromJson(Map<String, dynamic> json) {
     totalPages = json['total_pages'];
     totalResults = json['total_results'];
-    var listShows;
-    if (json['results'] != null) {
-      listShows = List<TvShow>();
-      json['results'].forEach((value) {
-        listShows.add(TvShow.fromJson(value));
-      });
-    }
+    results = (json['results'] as List).map((json) => TvShow.fromJson(json)).toList();
   }
 }

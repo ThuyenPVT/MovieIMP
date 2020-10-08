@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_7/blocs/movie_bloc.dart';
-import 'package:lesson_7/blocs/movie_trending_bloc.dart';
 import 'package:lesson_7/blocs/tv_show_bloc.dart';
 import 'package:lesson_7/models/movie.dart';
-import 'package:lesson_7/models/movie_trending.dart';
 import 'package:lesson_7/models/tv_show.dart';
 import 'package:lesson_7/networking/api_response.dart';
 import 'package:lesson_7/blocs/movie_bloc.dart';
@@ -14,18 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:lesson_7/view/nav_menu_drawer.dart';
 import 'movie_bookmark.dart';
 
-class TopMovieTrending extends StatefulWidget {
+class TvShowPopular extends StatefulWidget {
   @override
   _MovieScreenState createState() => _MovieScreenState();
 }
 
-class _MovieScreenState extends State<TopMovieTrending> {
-  MovieTrendingBloc _bloc;
+class _MovieScreenState extends State<TvShowPopular> {
+  TvShowBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = MovieTrendingBloc();
+    _bloc = TvShowBloc();
   }
 
   @override
@@ -56,14 +54,14 @@ class _MovieScreenState extends State<TopMovieTrending> {
         ],
         elevation: 0.0,
         title: Text(
-          'Top 10 Trending Film',
+          'Top 10 TV Show',
           style: TextStyle(fontSize: 25, fontFamily: 'Piazzolla'),
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchMovieTrendingList(),
-        child: StreamBuilder<ApiResponse<List<MovieTrending>>>(
-          stream: _bloc.movieTrendingStream,
+        onRefresh: () => _bloc.fetchTvShowList(),
+        child: StreamBuilder<ApiResponse<List<TvShow>>>(
+          stream: _bloc.tvShowStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               switch (snapshot.data.status) {
@@ -76,7 +74,7 @@ class _MovieScreenState extends State<TopMovieTrending> {
                 case Status.ERROR:
                   return Error(
                     errorMessage: snapshot.data.message,
-                    onRetryPressed: () => _bloc.fetchMovieTrendingList(),
+                    onRetryPressed: () => _bloc.fetchTvShowList(),
                   );
                   break;
               }
@@ -96,7 +94,7 @@ class _MovieScreenState extends State<TopMovieTrending> {
 }
 
 class MovieList extends StatelessWidget {
-  final List<MovieTrending> movieList;
+  final List<TvShow> movieList;
 
   const MovieList({Key key, this.movieList}) : super(key: key);
 

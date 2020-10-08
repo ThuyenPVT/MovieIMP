@@ -5,7 +5,7 @@ class TvShow {
   String name;
   int voteCount;
   String backdropPath;
-  double voteAverage;
+  var voteAverage;
   String overView;
   String posterPath;
 

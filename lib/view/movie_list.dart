@@ -132,7 +132,7 @@ class MovieList extends StatelessWidget {
                         tag: Text('anim_poster'),
                         child: Image.network(
                           'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       )),
                 ),
