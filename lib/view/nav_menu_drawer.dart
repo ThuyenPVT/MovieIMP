@@ -101,7 +101,7 @@ class _NewPage extends MaterialPageRoute<Null> {
             case 2:
               return TopMovieTrending();
               break;
-            case 5:
+            case 3:
               return Scaffold(
                 appBar: AppBar(
                   title: Text('Screen $id'),
@@ -147,7 +147,7 @@ class __newPageState extends State<_newPage> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Screen 1'),

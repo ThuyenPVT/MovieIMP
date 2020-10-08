@@ -19,7 +19,7 @@ class _ListTitleState extends State<ListTitle> {
 }
 
 Iterable<Container> _tiles() {
-  return Constant.movieBookmarked.map(
+  return Common.movieBookmarked.map(
     (Movie movie) {
       return Container(
           padding: EdgeInsets.all(5.0),
@@ -32,8 +32,10 @@ Iterable<Container> _tiles() {
               onTap: (){
                 print("Clicked! ");
               },
-              leading: Image.network(
-                  'https://image.tmdb.org/t/p/w342${movie.posterPath}'),
+              leading: Card(
+                child: Image.network(
+                    'https://image.tmdb.org/t/p/w342${movie.posterPath}'),
+              ),
               trailing: Icon(Icons.bookmark, color: Colors.red),
               title: Text(
                 movie.title,style: TextStyle(fontFamily: 'Piazzolla',fontSize:20.0),

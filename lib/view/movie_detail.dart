@@ -219,7 +219,7 @@ class __RateFilmBottom extends State<RateFilmBottom> {
   }
 
   Widget _buildBookmark(Movie movie) {
-    var _alreadySaved = Constant.movieId.contains(movie.id);
+    var _alreadySaved = Common.movieId.contains(movie.id);
 
     print(_alreadySaved);
     return Container(
@@ -229,15 +229,15 @@ class __RateFilmBottom extends State<RateFilmBottom> {
         onPressed: () {
           setState(() {
             if (_alreadySaved) {
-              Constant.movieId.remove(movie.id);
-              Constant.movieBookmarked.remove(movie);
+              Common.movieId.remove(movie.id);
+              Common.movieBookmarked.remove(movie);
               _alreadySaved = false;
             } else {
-              Constant.movieId.add(movie.id);
-              Constant.movieBookmarked.add(movie);
+              Common.movieId.add(movie.id);
+              Common.movieBookmarked.add(movie);
               _alreadySaved=true;
             }
-            for(var item in Constant.movieBookmarked){
+            for(var item in Common.movieBookmarked){
               print(item.title);
             }
           });
