@@ -13,11 +13,6 @@ class MovieResponse {
   MovieResponse.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     totalResults = json['total_results'];
-    if (json['results'] != null) {
-      results = List<Movie>();
-      json['results'].forEach((v) {
-        results.add( Movie.fromJson(v));
-      });
-    }
+    results = (json['results'] as List).map((json) => Movie.fromJson(json)).toList();
   }
 }

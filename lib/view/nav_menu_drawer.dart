@@ -6,6 +6,7 @@ import 'package:lesson_7/networking/api_response.dart';
 import 'package:lesson_7/view/movie_list.dart';
 import 'package:lesson_7/blocs/tv_show_bloc.dart';
 import 'package:lesson_7/view/movie_trending.dart';
+import 'package:lesson_7/view/tv_show.dart';
 
 class NavMenuDrawer extends StatefulWidget {
   @override
@@ -95,17 +96,10 @@ class _NewPage extends MaterialPageRoute<Null> {
       : super(builder: (BuildContext context) {
           switch (id) {
             case 1:
-              return MovieTrending();
+              return TvShowPopular();
               break;
             case 2:
-              return Scaffold(
-                appBar: AppBar(
-                  title: Text('Screen $id'),
-                ),
-                body: Loading(
-                  mesage: 'Trending  ...',
-                ),
-              );
+              return TopMovieTrending();
               break;
             case 5:
               return Scaffold(
