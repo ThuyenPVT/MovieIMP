@@ -72,7 +72,7 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
           },
         ),
         ListTile(
-          leading: Icon(Icons.add_comment_outlined),
+          leading: Icon(Icons.star),
           title: Text('Reviews'),
           onTap: () {
             Navigator.of(context).push(_NewPage(3));
