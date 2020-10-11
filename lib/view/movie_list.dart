@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lesson_7/anim/movie_hero.dart';
 import 'package:lesson_7/blocs/movie_bloc.dart';
 import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/networking/api_response.dart';
@@ -119,24 +120,23 @@ class MovieList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MovieDetail(movieList[index].id)));
-              },
-              child: GestureDetector(
-                child: Card(
-                  child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Hero(
-                        tag: Text('anim_poster'),
-                        child: Image.network(
-                          'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
-                          fit: BoxFit.cover,
-                        ),
-                      )),
+          child: GestureDetector(
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: PhotoHero(
+                  photo:
+                  'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
+                  width: 300.0,
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            MovieDetail(movieList[index].id)));
+                  },
                 ),
-              )),
+              ),
+            ),
+          ),
         );
       },
     );

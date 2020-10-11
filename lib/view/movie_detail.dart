@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lesson_7/anim/movie_hero.dart';
 import 'package:lesson_7/blocs/movie_detail_bloc.dart';
 import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/networking/api_response.dart';
@@ -94,23 +95,19 @@ class ShowMovieDetail extends StatelessWidget {
             margin: const EdgeInsets.all(20.0),
             child: Column(
               children: <Widget>[
-                Hero(
-                  tag: Text('anim_poster'),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 400.0,
-                      height: 400.0,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}'),
-                          fit: BoxFit.cover),
-                      boxShadow: [
-                        BoxShadow(blurRadius: 20.0, offset: Offset(0.0, 10.0))
-                      ],
+                Container(
+                  alignment: Alignment.center,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: PhotoHero(
+                        photo:
+                            'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
+                        width: 300.0,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -200,7 +197,8 @@ class __RateFilmBottom extends State<RateFilmBottom> {
             child: IconButton(
               onPressed: () {
                 print("Item Clicked");
-                Share.share('https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
+                Share.share(
+                    'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
                     subject: 'Great Film !');
               },
               icon: Icon(Icons.share),
@@ -235,9 +233,9 @@ class __RateFilmBottom extends State<RateFilmBottom> {
             } else {
               Constant.movieId.add(movie.id);
               Constant.movieBookmarked.add(movie);
-              _alreadySaved=true;
+              _alreadySaved = true;
             }
-            for(var item in Constant.movieBookmarked){
+            for (var item in Constant.movieBookmarked) {
               print(item.title);
             }
           });
