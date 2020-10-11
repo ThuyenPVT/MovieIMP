@@ -34,6 +34,26 @@ class _MovieScreenState extends State<MovieScreen> {
       drawer: Drawer(
         child: NavMenuDrawer(),
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: () {
+          setState(() {
+            Navigator.of(context).push(
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) {
+                  return ListTitle(
+                    context,
+                  );
+                },
+              ),
+            );
+          });
+        },
+        child: Icon(
+          Icons.bookmark,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -46,20 +66,10 @@ class _MovieScreenState extends State<MovieScreen> {
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    Navigator.of(context).push(
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) {
-                          return ListTitle(
-                            context,
-                          );
-                        },
-                      ),
-                    );
-                  });
+                 print("Searching ....");
                 },
                 child: Icon(
-                  Icons.bookmark,
+                  Icons.search,
                 ),
               )),
         ],
@@ -126,7 +136,7 @@ class MovieList extends StatelessWidget {
                 padding: const EdgeInsets.all(4.0),
                 child: PhotoHero(
                   photo:
-                  'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
+                      'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
                   width: 300.0,
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(

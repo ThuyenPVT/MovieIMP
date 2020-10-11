@@ -113,9 +113,8 @@ class MovieList extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
               onTap: () {
-                print('Clicked trending !');
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => MovieDetail(movieList[index].id)));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MovieDetail(movieList[index].id)));
               },
               child: GestureDetector(
                 child: Card(

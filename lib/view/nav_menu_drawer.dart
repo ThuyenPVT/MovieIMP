@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson_7/models/tv_show.dart';
 import 'package:lesson_7/networking/api_response.dart';
@@ -26,64 +27,67 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.zero,
+       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.redAccent,
+              borderRadius:
+                  BorderRadius.only(bottomRight: Radius.circular(55.0)),
             ),
             child: Center(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: Text(
-                        'Thuyen Pham',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontFamily: 'Piazzolla',
-                        ),
-                      ),
-                    ),
+              child: UserAccountsDrawerHeader(
+                accountName: Text("Thuyen Pham"),
+                accountEmail: Text("pham.van.thuyen@jobchat.vn"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor:
+                      Theme.of(context).platform == TargetPlatform.iOS
+                          ? Colors.blue
+                          : Colors.white,
+                  child: Text(
+                    "T",
+                    style: TextStyle(fontSize: 40.0),
                   ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: Image.asset('lib/assets/icons/profile.png',
-                        height: 40, width: 40),
-                  )
-                ],
+                ),
               ),
             )),
-        ListTile(
-          leading: Icon(Icons.airplay),
-          title: Text('TV Shows'),
-          onTap: () {
-            Navigator.of(context).push(_NewPage(1));
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.stars),
-          title: Text('Trending'),
-          onTap: () {
-            Navigator.of(context).push(_NewPage(2));
-          },
-        ),
-        ListTile(
-          leading: Icon(Icons.star),
-          title: Text('Reviews'),
-          onTap: () {
-            Navigator.of(context).push(_NewPage(3));
-          },
-        ),
-        ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
-            onTap: () {
-              Navigator.of(context).push(_NewPage(4));
-            }),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0)),
+          ),
+          child: Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.airplay),
+                title: Text('TV Shows'),
+                onTap: () {
+                  Navigator.of(context).push(_NewPage(1));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.stars),
+                title: Text('Trending'),
+                onTap: () {
+                  Navigator.of(context).push(_NewPage(2));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.star),
+                title: Text('Reviews'),
+                onTap: () {
+                  Navigator.of(context).push(_NewPage(3));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Logout'),
+                onTap: () {
+                  Navigator.of(context).push(_NewPage(4));
+                },
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -101,7 +105,7 @@ class _NewPage extends MaterialPageRoute<Null> {
             case 2:
               return TopMovieTrending();
               break;
-            case 5:
+            case 3:
               return Scaffold(
                 appBar: AppBar(
                   title: Text('Screen $id'),
@@ -116,8 +120,10 @@ class _NewPage extends MaterialPageRoute<Null> {
                 appBar: AppBar(
                   title: Text('Screen $id'),
                 ),
-                body: Loading(
-                  mesage: 'Trending  ...',
+                body: Center(
+                  child: Loading(
+                    mesage: 'Trending  ...',
+                  ),
                 ),
               );
               break;
@@ -147,7 +153,7 @@ class __newPageState extends State<_newPage> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Screen 1'),
@@ -231,10 +237,11 @@ class Complete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      child: Center(
-        child: Text('$listShows'),
+      body: Container(
+        child: Center(
+          child: Text('$listShows'),
+        ),
       ),
-    ));
+    );
   }
 }
