@@ -5,6 +5,14 @@ import 'package:http/http.dart' as http;
 import 'package:lesson_7/utils/Constant.dart';
 
 class ApiBaseHelper {
+  static final ApiBaseHelper _instance = ApiBaseHelper._internal();
+
+  factory ApiBaseHelper() {
+    return _instance;
+  }
+
+  ApiBaseHelper._internal();
+
   Future<dynamic> get(String url) async {
     var responseJson;
     try {

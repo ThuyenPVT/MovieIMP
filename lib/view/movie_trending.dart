@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:lesson_7/blocs/movie_bloc.dart';
 import 'package:lesson_7/blocs/movie_trending_bloc.dart';
-import 'package:lesson_7/blocs/tv_show_bloc.dart';
-import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/models/movie_trending.dart';
-import 'package:lesson_7/models/tv_show.dart';
 import 'package:lesson_7/networking/api_response.dart';
-import 'package:lesson_7/blocs/movie_bloc.dart';
-import 'package:lesson_7/networking/api_response.dart';
-import 'package:lesson_7/utils/Constant.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
 import 'package:lesson_7/view/movie_detail.dart';
-import 'package:flutter/material.dart';
-import 'package:lesson_7/view/nav_menu_drawer.dart';
 import 'movie_bookmark.dart';
 
-class TopMovieTrending extends StatefulWidget {
+class MovieTrendingScreen extends StatefulWidget {
+  static const String routeName = "/TopMovieTrending";
+
   @override
   _MovieScreenState createState() => _MovieScreenState();
 }
 
-class _MovieScreenState extends State<TopMovieTrending> {
+class _MovieScreenState extends State<MovieTrendingScreen> {
   MovieTrendingBloc _bloc;
 
   @override
@@ -41,7 +36,7 @@ class _MovieScreenState extends State<TopMovieTrending> {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) {
-                          return ListTitle(
+                          return MovieBookmark(
                             context,
                           );
                         },
@@ -49,15 +44,13 @@ class _MovieScreenState extends State<TopMovieTrending> {
                     );
                   });
                 },
-                child: Icon(
-                  Icons.bookmark,
-                ),
+                child: bookmarkIcon,
               )),
         ],
         elevation: 0.0,
         title: Text(
           'Top 10 Trending Film',
-          style: TextStyle(fontSize: 25, fontFamily: 'Piazzolla'),
+          style: textFont25,
         ),
       ),
       body: RefreshIndicator(
@@ -113,8 +106,11 @@ class MovieList extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => MovieDetail(movieList[index].id)));
+                // Route _detailMovieRoute = MaterialPageRoute(
+                //     builder: (context) => MovieDetail(movieList[index].id));
+                // Navigator.of(context).push(_detailMovieRoute);
+                Navigator.pushNamed(context, MovieDetail.routeName,
+                    arguments: movieList[index].id);
               },
               child: GestureDetector(
                 child: Card(
@@ -151,10 +147,7 @@ class Error extends StatelessWidget {
           Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
+            style: textFont18,
           ),
           SizedBox(height: 8),
           RaisedButton(
@@ -184,9 +177,7 @@ class Loading extends StatelessWidget {
           Text(
             loadingMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-            ),
+            style: textFont24,
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(

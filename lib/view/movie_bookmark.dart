@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:lesson_7/models/movie.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
 import 'package:lesson_7/utils/Constant.dart';
 
-class ListTitle extends StatefulWidget {
+class MovieBookmark extends StatefulWidget {
+  static const String routeName = "/MovieBookmark";
+
   BuildContext context;
-  ListTitle(this.context);
+
+  MovieBookmark(this.context);
+
   @override
   _ListTitleState createState() => _ListTitleState(context);
 }
 
-class _ListTitleState extends State<ListTitle> {
+class _ListTitleState extends State<MovieBookmark> {
   BuildContext context;
+
   _ListTitleState(this.context);
+
   @override
   Widget build(BuildContext context) {
     return _listTitle(context);
@@ -29,14 +37,15 @@ Iterable<Container> _tiles() {
             ),
             elevation: 3.0,
             child: ListTile(
-              onTap: (){
+              onTap: () {
                 print("Clicked! ");
               },
               leading: Image.network(
                   'https://image.tmdb.org/t/p/w342${movie.posterPath}'),
-              trailing: Icon(Icons.bookmark, color: Colors.red),
+              trailing: bookmarkIconRed,
               title: Text(
-                movie.title,style: TextStyle(fontFamily: 'Piazzolla',fontSize:20.0),
+                movie.title,
+                style: textFontPiazz20,
               ),
             ),
           ));
@@ -54,7 +63,7 @@ Widget _listTitle(BuildContext context) {
     appBar: AppBar(
       title: Text(
         'Bookmark',
-        style: TextStyle(fontFamily: 'Piazzolla'),
+        style: textFontPiazz,
       ),
     ),
     body: ListView(children: divided),

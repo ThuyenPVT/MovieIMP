@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lesson_7/blocs/movie_bloc.dart';
 import 'package:lesson_7/blocs/tv_show_bloc.dart';
-import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/models/tv_show.dart';
 import 'package:lesson_7/networking/api_response.dart';
-import 'package:lesson_7/blocs/movie_bloc.dart';
-import 'package:lesson_7/networking/api_response.dart';
-import 'package:lesson_7/utils/Constant.dart';
-import 'package:lesson_7/view/movie_detail.dart';
-import 'package:flutter/material.dart';
-import 'package:lesson_7/view/nav_menu_drawer.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
 import 'package:lesson_7/view/tv_show_detail.dart';
 import 'movie_bookmark.dart';
 
 class TvShowPopular extends StatefulWidget {
+  static const String routeName = "/TvShowPopular";
+
   @override
   _MovieScreenState createState() => _MovieScreenState();
 }
@@ -38,7 +34,7 @@ class _MovieScreenState extends State<TvShowPopular> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (BuildContext context) {
-                  return ListTitle(
+                  return MovieBookmark(
                     context,
                   );
                 },
@@ -53,7 +49,7 @@ class _MovieScreenState extends State<TvShowPopular> {
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
-                 print("Searching ...");
+                  print("Searching ...");
                 },
                 child: Icon(
                   Icons.search,
@@ -116,11 +112,8 @@ class MovieList extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 18, vertical: 5),
           alignment: Alignment.topLeft,
           child: Text(
-            'Trending',
-            style: TextStyle(
-                color: Colors.black54,
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0),
+            'Popular',
+            style: textBlack15,
           ),
         ),
         _buildTitleTopShows(),
@@ -169,20 +162,14 @@ class MovieList extends StatelessWidget {
                   ),
                   Text(
                     '${movieList[1].originalName}',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold),
+                    style: textBlue12,
                   ),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('${movieList[1].voteAverage}'),
-                        Icon(
-                          Icons.star,
-                          size: 15.0,
-                        ),
+                        starIcon15,
                       ],
                     ),
                   ),
@@ -234,22 +221,13 @@ class MovieList extends StatelessWidget {
                     child: Center(
                       child: Text(
                         '${movieList[0].originalName}',
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.bold),
+                        style: textBlue12,
                       ),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('${movieList[0].voteAverage}'),
-                      Icon(
-                        Icons.star,
-                        size: 15.0,
-                      ),
-                    ],
+                    children: [Text('${movieList[0].voteAverage}'), starIcon15],
                   ),
                   Text('${movieList[0].voteCount} vote'),
                 ],
@@ -286,7 +264,7 @@ class MovieList extends StatelessWidget {
                           ),
                           Text(
                             '3',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: textFontBold,
                           ),
                         ],
                       ),
@@ -300,20 +278,14 @@ class MovieList extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '${movieList[2].originalName}',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold),
+                      style: textFontBlue12,
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('${movieList[2].voteAverage}'),
-                      Icon(
-                        Icons.star,
-                        size: 15.0,
-                      ),
+                      starIcon15,
                     ],
                   ),
                   Text('${movieList[2].voteCount} vote'),
@@ -339,10 +311,7 @@ class MovieList extends StatelessWidget {
         children: [
           Text(
             'Rank',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13.0,
-            ),
+            style: textFont13,
           ),
           SizedBox(
             width: 70,
@@ -350,19 +319,19 @@ class MovieList extends StatelessWidget {
           Expanded(
             child: Text(
               'Film',
-              style: TextStyle(color: Colors.white, fontSize: 13.0),
+              style: textFont13,
             ),
           ),
           Text(
             'Vote',
-            style: TextStyle(color: Colors.white, fontSize: 13.0),
+            style: textFont13,
           ),
           SizedBox(
             width: 10,
           ),
           Text(
             'Rating',
-            style: TextStyle(color: Colors.white, fontSize: 13.0),
+            style: textFont13,
           ),
         ],
       ),
@@ -378,11 +347,14 @@ class MovieList extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: ListTile(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => TvShowDetail((index + 2)),
-                ),
-              );
+              /// Simple routing
+              // Route _tvShowDetailRoute = MaterialPageRoute(
+              //     builder: (context) => TvShowDetail((index + 2)));
+              // Navigator.of(context).push(_tvShowDetailRoute);
+
+              //Named routing
+              Navigator.pushNamed(context, TvShowDetail.routeName,
+                  arguments: (index + 2));
             },
             title: Row(
               children: [
@@ -390,7 +362,7 @@ class MovieList extends StatelessWidget {
                   width: 23,
                   child: Text(
                     '${index + 1}',
-                    style: TextStyle(color: Colors.blue, fontSize: 20),
+                    style: textBlue20,
                   ),
                 ),
                 Image.network(
@@ -404,7 +376,7 @@ class MovieList extends StatelessWidget {
                 ),
                 Text(
                   '${movieList[index].voteCount}',
-                  style: TextStyle(fontSize: 12.0, color: Colors.black38),
+                  style: textBlack12,
                 ),
               ],
             ),
@@ -432,10 +404,7 @@ class Error extends StatelessWidget {
           Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
+            style: textFont18,
           ),
           SizedBox(height: 8),
           RaisedButton(
@@ -465,9 +434,7 @@ class Loading extends StatelessWidget {
           Text(
             loadingMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-            ),
+            style: textFont24,
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(

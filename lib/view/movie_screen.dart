@@ -5,6 +5,9 @@ import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/networking/api_response.dart';
 import 'package:lesson_7/blocs/movie_bloc.dart';
 import 'package:lesson_7/networking/api_response.dart';
+import 'package:lesson_7/shared/color_styles.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
 import 'package:lesson_7/utils/Constant.dart';
 import 'package:lesson_7/view/movie_detail.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,8 @@ import 'package:lesson_7/view/nav_menu_drawer.dart';
 import 'movie_bookmark.dart';
 
 class MovieScreen extends StatefulWidget {
+  static const String routeName = "/MovieScreen";
+
   @override
   _MovieScreenState createState() => _MovieScreenState();
 }
@@ -41,7 +46,7 @@ class _MovieScreenState extends State<MovieScreen> {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (BuildContext context) {
-                  return ListTitle(
+                  return MovieBookmark(
                     context,
                   );
                 },
@@ -49,34 +54,29 @@ class _MovieScreenState extends State<MovieScreen> {
             );
           });
         },
-        child: Icon(
-          Icons.bookmark,
-          color: Colors.white,
-        ),
+        child: bookmarkIconWhite,
       ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             _scaffoldKey.currentState.openDrawer();
           },
-          icon: Icon(Icons.menu, color: Colors.white),
+          icon:menuIcon,
         ),
         actions: [
           Container(
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: () {
-                 print("Searching ....");
+                  print("Searching ....");
                 },
-                child: Icon(
-                  Icons.search,
-                ),
+                child: searchIcon
               )),
         ],
         elevation: 0.0,
         title: Text(
           'Phim Hay',
-          style: TextStyle(fontSize: 25, fontFamily: 'Piazzolla'),
+          style: textFont25,
         ),
       ),
       body: RefreshIndicator(
@@ -139,9 +139,12 @@ class MovieList extends StatelessWidget {
                       'https://image.tmdb.org/t/p/w342${movieList[index].posterPath}',
                   width: 300.0,
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            MovieDetail(movieList[index].id)));
+                    // Route route = MaterialPageRoute(
+                    //     builder: (context) => MovieDetail(movieList[index].id));
+                    // Navigator.of(context).push(route);
+                    Navigator.pushNamed(context, MovieDetail.routeName,
+                        arguments: movieList[index].id);
+                    print('MovieDetail');
                   },
                 ),
               ),
@@ -162,6 +165,9 @@ class Error extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // final MovieDetail args = ModalRoute.of(context).settings.arguments;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -169,10 +175,7 @@ class Error extends StatelessWidget {
           Text(
             errorMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
+            style: textFont18
           ),
           SizedBox(height: 8),
           RaisedButton(
@@ -202,9 +205,7 @@ class Loading extends StatelessWidget {
           Text(
             loadingMessage,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-            ),
+            style: textFont24
           ),
           SizedBox(height: 24),
           CircularProgressIndicator(
