@@ -3,13 +3,18 @@ import 'package:lesson_7/anim/movie_hero.dart';
 import 'package:lesson_7/blocs/movie_detail_bloc.dart';
 import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/networking/api_response.dart';
+import 'package:lesson_7/shared/color_styles.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
 import 'package:lesson_7/utils/Constant.dart';
 import 'package:share/share.dart';
 
 class MovieDetail extends StatefulWidget {
-  final int selectedMovie;
+  static const String routeName = "/MovieDetail";
 
   const MovieDetail(this.selectedMovie);
+
+  final int selectedMovie;
 
   @override
   _MovieDetailState createState() => _MovieDetailState();
@@ -31,10 +36,7 @@ class _MovieDetailState extends State<MovieDetail> {
         elevation: 0.0,
         title: Text(
           'Moviez',
-          style: TextStyle(
-            fontSize: 20,
-            fontFamily: 'Piazzolla',
-          ),
+          style: textFontPiazz20,
         ),
       ),
       body: RefreshIndicator(
@@ -112,8 +114,7 @@ class ShowMovieDetail extends StatelessWidget {
                   ),
                 ),
                 _filmDescription(displayMovie),
-                Text(displayMovie.overview,
-                    style: TextStyle(color: Colors.white, fontFamily: 'Arvo')),
+                Text(displayMovie.overview, style: textFontArvo),
                 Padding(padding: const EdgeInsets.all(10.0)),
                 RateFilmBottom(
                   displayMovie: displayMovie,
@@ -132,24 +133,16 @@ Widget _filmDescription(Movie displayMovie) {
     margin: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
     child: Row(
       children: <Widget>[
-        Expanded(
-            child: Text(
-          displayMovie.title,
-          style: TextStyle(
-              color: Colors.white, fontSize: 30.0, fontFamily: 'Arvo'),
-        )),
+        Expanded(child: Text(displayMovie.title, style: textFontArvo30)),
         Row(
           children: [
-            Text(
-              displayMovie.voteAverage.toStringAsFixed(2),
+            Text(displayMovie.voteAverage.toStringAsFixed(2),
 //                      '${widget.movie['vote_average']}/10',
-              style: TextStyle(
-                  color: Colors.white, fontSize: 20.0, fontFamily: 'Arvo'),
-            ),
+                style: textFontArvo20),
             SizedBox(
               width: 5,
             ),
-            Icon(Icons.star, color: Colors.white),
+            starIconWhite,
           ],
         )
       ],
@@ -176,19 +169,15 @@ class __RateFilmBottom extends State<RateFilmBottom> {
     return Row(
       children: <Widget>[
         Expanded(
-            child: Container(
-          width: 150.0,
-          height: 60.0,
-          alignment: Alignment.center,
-          child: Text(
-            'Rate Movie',
-            style: TextStyle(
-                color: Colors.white, fontFamily: 'Arvo', fontSize: 20.0),
+          child: Container(
+            width: 150.0,
+            height: 60.0,
+            alignment: Alignment.center,
+            child: Text('Rate Movie', style: textFontArvo20),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0), color: hexColor),
           ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              color: const Color(0xaa3C3261)),
-        )),
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
@@ -201,12 +190,11 @@ class __RateFilmBottom extends State<RateFilmBottom> {
                     'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
                     subject: 'Great Film !');
               },
-              icon: Icon(Icons.share),
+              icon: shareIcon,
               color: Colors.white,
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: const Color(0xaa3C3261)),
+                borderRadius: BorderRadius.circular(10.0), color: hexColor),
           ),
         ),
         Padding(
@@ -218,7 +206,6 @@ class __RateFilmBottom extends State<RateFilmBottom> {
 
   Widget _buildBookmark(Movie movie) {
     var _alreadySaved = Constant.movieId.contains(movie.id);
-
     print(_alreadySaved);
     return Container(
       padding: const EdgeInsets.all(7.0),
@@ -240,14 +227,13 @@ class __RateFilmBottom extends State<RateFilmBottom> {
             }
           });
         },
-        icon: _alreadySaved
-            ? Icon(Icons.bookmark, color: Colors.red)
-            : Icon(Icons.bookmark, color: Colors.white),
+        icon: _alreadySaved ? bookmarkIconRed : bookmarkIconWhite,
         color: Colors.white,
       ),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: const Color(0xaa3C3261)),
+        borderRadius: BorderRadius.circular(10.0),
+        color: hexColor,
+      ),
     );
   }
 }
@@ -265,14 +251,7 @@ class Error extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            errorMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 18,
-            ),
-          ),
+          Text(errorMessage, textAlign: TextAlign.center, style: textFont18),
           SizedBox(height: 8),
           RaisedButton(
             color: Colors.redAccent,
@@ -299,13 +278,7 @@ class Loading extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(
-            loadingMessage,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
+          Text(loadingMessage, textAlign: TextAlign.center, style: textFont24),
           SizedBox(height: 24),
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.lightGreen),

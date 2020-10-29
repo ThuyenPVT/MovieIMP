@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lesson_7/models/tv_show.dart';
 import 'package:lesson_7/networking/api_response.dart';
-import 'package:lesson_7/view/movie_list.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
+import 'package:lesson_7/shared/text_styles.dart';
+import 'package:lesson_7/view/movie_screen.dart';
 import 'package:lesson_7/blocs/tv_show_bloc.dart';
 import 'package:lesson_7/view/movie_trending.dart';
 import 'package:lesson_7/view/tv_show.dart';
@@ -46,7 +48,7 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
                           : Colors.white,
                   child: Text(
                     "T",
-                    style: TextStyle(fontSize: 40.0),
+                    style: textFont40,
                   ),
                 ),
               ),
@@ -58,28 +60,28 @@ class _NavMenuDrawerState extends State<NavMenuDrawer> {
           child: Column(
             children: [
               ListTile(
-                leading: Icon(Icons.airplay),
+                leading: airplayIcon,
                 title: Text('TV Shows'),
                 onTap: () {
                   Navigator.of(context).push(_NewPage(1));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.stars),
+                leading: starIcon,
                 title: Text('Trending'),
                 onTap: () {
                   Navigator.of(context).push(_NewPage(2));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.star),
+                leading: starIcon,
                 title: Text('Reviews'),
                 onTap: () {
                   Navigator.of(context).push(_NewPage(3));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.exit_to_app),
+                leading: exitIcon,
                 title: Text('Logout'),
                 onTap: () {
                   Navigator.of(context).push(_NewPage(4));
@@ -103,7 +105,7 @@ class _NewPage extends MaterialPageRoute<Null> {
               return TvShowPopular();
               break;
             case 2:
-              return TopMovieTrending();
+              return MovieTrendingScreen();
               break;
             case 3:
               return Scaffold(
@@ -200,7 +202,7 @@ class Loading extends StatelessWidget {
         children: [
           Text(
             'Loading ...',
-            style: TextStyle(color: Colors.green),
+            style: textGreen,
           ),
           CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.green),

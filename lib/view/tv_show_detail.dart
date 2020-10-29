@@ -3,13 +3,16 @@ import 'package:lesson_7/anim/movie_hero.dart';
 import 'package:lesson_7/blocs/movie_detail_bloc.dart';
 import 'package:lesson_7/models/movie.dart';
 import 'package:lesson_7/networking/api_response.dart';
+import 'package:lesson_7/shared/icon_styles.dart';
 import 'package:lesson_7/utils/Constant.dart';
 import 'package:share/share.dart';
 
 class TvShowDetail extends StatefulWidget {
-  final int selectedMovie;
+  static const String routeName = "/TvShowDetail";
 
   const TvShowDetail(this.selectedMovie);
+
+  final int selectedMovie;
 
   @override
   _MovieDetailState createState() => _MovieDetailState();
@@ -102,7 +105,7 @@ class ShowMovieDetail extends StatelessWidget {
                       padding: const EdgeInsets.all(4.0),
                       child: PhotoHero(
                         photo:
-                        'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
+                            'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
                         width: 300.0,
                         onTap: () {
                           Navigator.of(context).pop();
@@ -134,10 +137,10 @@ Widget _filmDescription(Movie displayMovie) {
       children: <Widget>[
         Expanded(
             child: Text(
-              displayMovie.title,
-              style: TextStyle(
-                  color: Colors.white, fontSize: 30.0, fontFamily: 'Arvo'),
-            )),
+          displayMovie.title,
+          style: TextStyle(
+              color: Colors.white, fontSize: 30.0, fontFamily: 'Arvo'),
+        )),
         Row(
           children: [
             Text(
@@ -149,7 +152,7 @@ Widget _filmDescription(Movie displayMovie) {
             SizedBox(
               width: 5,
             ),
-            Icon(Icons.star, color: Colors.white),
+            starIconWhite,
           ],
         )
       ],
@@ -177,18 +180,18 @@ class __RateFilmBottom extends State<RateFilmBottom> {
       children: <Widget>[
         Expanded(
             child: Container(
-              width: 150.0,
-              height: 60.0,
-              alignment: Alignment.center,
-              child: Text(
-                'Rate Movie',
-                style: TextStyle(
-                    color: Colors.white, fontFamily: 'Arvo', fontSize: 20.0),
-              ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: const Color(0xaa3C3261)),
-            )),
+          width: 150.0,
+          height: 60.0,
+          alignment: Alignment.center,
+          child: Text(
+            'Rate Movie',
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'Arvo', fontSize: 20.0),
+          ),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: const Color(0xaa3C3261)),
+        )),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
@@ -201,7 +204,7 @@ class __RateFilmBottom extends State<RateFilmBottom> {
                     'https://image.tmdb.org/t/p/w342${displayMovie.posterPath}',
                     subject: 'Great Film !');
               },
-              icon: Icon(Icons.share),
+              icon: shareIcon,
               color: Colors.white,
             ),
             decoration: BoxDecoration(
@@ -241,8 +244,8 @@ class __RateFilmBottom extends State<RateFilmBottom> {
           });
         },
         icon: _alreadySaved
-            ? Icon(Icons.bookmark, color: Colors.red)
-            : Icon(Icons.bookmark, color: Colors.white),
+            ? bookmarkIconRed
+            : bookmarkIconWhite,
         color: Colors.white,
       ),
       decoration: BoxDecoration(
