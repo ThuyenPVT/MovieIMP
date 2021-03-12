@@ -12,6 +12,8 @@ import 'package:lesson_7/view/nav_menu_drawer.dart';
 import 'movie_bookmark.dart';
 
 class MovieScreen extends StatefulWidget {
+
+
   @override
   _MovieScreenState createState() => _MovieScreenState();
 }
